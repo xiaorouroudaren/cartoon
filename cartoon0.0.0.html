@@ -61,37 +61,30 @@ function getStyle(obj,attr){
         return parseInt(getComputedStyle(obj,false)[attr]);
     }
 }
-var share =getObj("content");
-share.addEventListener("mouseover",function(){
-    moving();
-},true);
-var timer=null;
-function moving(){
-    clearInterval(timer1);
-    clearInterval(timer);
-    timer=setInterval(function(){
+    var share =getObj("content");
+    share.addEventListener("mouseover",function(){
+        moving(this,5,0);
+    },true);
+    share.addEventListener("mouseout",function(){
+        moving(this,-5,-200);
+    },true);
+
+
+function moving(obj,speed,ter){
+    clearInterval(share.timer);
+    obj.timer=null;
+    obj.timer=setInterval(function(){
         var left_val=getStyle(share,"left");
-        if(left_val<0){
-            left_val+=10;
+        if(left_val<ter) {
+            if (left_val<ter){
+                left_val+=speed;}
+        } else {
+            if(left_val>ter){
+                left_val+=speed;}
         }
         share.style.left=left_val+"px";
     },17)
 }
-    share.addEventListener("mouseout",function(){
-        moving1();
-    },true);
-    var timer1=null;
-    function moving1(){
-        clearInterval(timer);
-        clearInterval(timer1);
-        timer1=setInterval(function(){
-            var left_val=getStyle(share,"left");
-            if(left_val>-200){
-                left_val-=10;
-            }
-            share.style.left=left_val+"px";
-        },17)
-    }
 </script>
 </body>
 </html>
